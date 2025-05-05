@@ -3,6 +3,10 @@ import { useState, createContext } from "react";
 
 export const cartContext = createContext();
 
+// This is an example of how we could use write a custom
+// hook to abstract the fetching of data away
+// Or you could use a library like Tanstack Query or useSWR.
+
 // function useFetch(url, options) {
 //     const [data, setData] = useState(undefined);
 //     const [error, setError] = useState(undefined);
@@ -33,6 +37,8 @@ export const cartContext = createContext();
 //     };
 // }
 
+// It's not necessary to create an entire component for our provider
+// but it's good practice.
 export default function CartProvider({ children }) {
     console.log("CartProvider was called");
     const [cartItems, setCartItems] = useState([]);
@@ -50,6 +56,8 @@ export default function CartProvider({ children }) {
 
     useEffect(() => {
         console.log("Use Effect is running");
+        // This setTimeout simulates a fetch that takes some
+        // time to complete
         setTimeout(() => {
             const cartItemsFromAPI = [
                 {
@@ -83,6 +91,8 @@ export default function CartProvider({ children }) {
         setCartItems(newCartItems);
     }
 
+    // This is the value we are putting into the context
+    // It consists of the cartItems list, and a deleteCartItem function
     const value = {
         cartItems,
         deleteCartItem,
@@ -90,6 +100,8 @@ export default function CartProvider({ children }) {
     return (
         <main>
             <cartContext.Provider value={value}>
+                {/* children is a special built in prop that 
+                represents the components nested under this one. */}
                 {children}
             </cartContext.Provider>
         </main>

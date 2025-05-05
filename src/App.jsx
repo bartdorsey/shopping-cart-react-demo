@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import Cart from "./Cart";
 import Header from "./Header";
